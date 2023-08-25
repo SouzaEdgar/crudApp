@@ -7,8 +7,9 @@ import {
     FlatList
 } from 'react-native';
 
-//import database from '../../config/firebaseconfig';
 import styles from './style';
+import { FontAwesome } from '@expo/vector-icons';
+
 import { FIREBASE_DB } from '../../config/firebaseconfig';
 import { 
     collection, 
@@ -16,24 +17,36 @@ import {
     setDoc, 
     onSnapshot, 
     Firestore,
-    deleteDoc
+    deleteDoc,
+    getDocs
 } from "firebase/firestore"; 
 
-// Use State
-//  Sempre que carregar a pagina
+export default function Task({navigation}) {
 
-export default function Task() {
-    const [tasks, setTasks] = useState([]);
+    // Tentativa de Leitura #2
+    //      retorna uma lista (dos itens)
+    async function getTasks() {
+        // db = FIREBASE_DB
+        const tasksCol = collection(FIREBASE_DB, 'Tasks');
+        const tasksSnapshot = await getDocs(tasksCol);
+        const tasksList = tasksSnapshot.docs.map(doc => doc.data());
 
-
-    function deleteTask(id) {
-        const db = collection(FIREBASE_DB, 'Tasks');
-        deleteDoc(doc(db, id))
+        return tasksList;
     }
 
+    function deleteTask(id) {
+        const taskRef = collection(FIREBASE_DB, 'Tasks');
+        deleteDoc(doc(taskRef, 'Tasks', id));
+    }
+
+    // Tentativa de Leitura #1
+    //   Utilizado na video aula, porem de forma atualizada
+    const [tasks, setTasks] = useState([]);
+
+    // useEffect, toda vez que for renderizado o componente Task (index.js)
+    //  ocorre esta chamada, então sempre vai estar atualizado
     useEffect(() => {
         const database = collection(FIREBASE_DB, 'Tasks');
-
         const inserido = onSnapshot(database, {
             next: (snapshot) => {
                 const tasks = [];
@@ -43,29 +56,57 @@ export default function Task() {
                         ...doc.data(),
                     });
                 });
+                // Apos ser adicionado os valores ao array
+                //  é setado nos tasks
                 setTasks(tasks);
             },
         });
         return () => inserido();
     }, []);
-/*
-    function deleteTask(id) {
-        database.collection('Tasks').doc(id).delete();
-    }
 
-    useEffect(() => {
-        database.collection('Tasks').onSnapshot((query)=>{
-            const list = [];
-            query.forEach((doc)=>{
-                list.push({...doc.data(), id: doc.id})
-            })
-            setTask(list);
-        })
-    }, []);
-*/
     return (
-        <View>
-            <Text>Page Tasks</Text>
+        <View style={styles.container}>
+            <FlatList
+                // Esconder a barra vertical da list
+                showsVerticalScrollIndicator={false}
+                data={tasks}
+                renderItem={({ item }) => {
+                    return (
+                        <View style={styles.Tasks}>
+                            <TouchableOpacity 
+                                style={styles.deleteTask}
+                                onPress={() => {
+                                    deleteTask(item.id)
+                                }}
+                            >
+                                <FontAwesome
+                                    name='star'
+                                    size={23}
+                                    color='#F92e6a'
+                                >
+                                </FontAwesome>
+                            </TouchableOpacity>
+                            <Text
+                                style={styles.DescriptionTask}
+                                onPress={() => {
+                                    navigation.navigate('Details', {
+                                        id: item.id,
+                                        description: item.description
+                                    })
+                                }}
+                            >
+                                {item.description}
+                            </Text>
+                        </View>
+                    )
+                }}
+            />
+            <TouchableOpacity 
+                style={styles.buttonNewTask}
+                onPress={() => navigation.navigate('NewTask')}
+            >
+                <Text style={styles.iconButton}>+</Text>
+            </TouchableOpacity>
         </View>
     )
 }
