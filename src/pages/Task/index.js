@@ -34,6 +34,7 @@ export default function Task({navigation}) {
         return tasksList;
     }
 
+    // Funcional
     function deleteTask(id) {
         const taskRef = collection(FIREBASE_DB, 'Tasks');
         deleteDoc(doc(taskRef, id));
@@ -70,6 +71,9 @@ export default function Task({navigation}) {
                 // Esconder a barra vertical da list
                 showsVerticalScrollIndicator={false}
                 data={tasks}
+                // Como o data esta obtendo as tasks, ao renderizar um item
+                //  é obtido uma task por vez, dessa forma ao pegar item.id
+                //  você consegue o id relativo ao item propriamente dito
                 renderItem={({item}) => {
                     return (
                         <View style={styles.Tasks}>
