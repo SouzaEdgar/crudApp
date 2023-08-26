@@ -36,7 +36,7 @@ export default function Task({navigation}) {
 
     function deleteTask(id) {
         const taskRef = collection(FIREBASE_DB, 'Tasks');
-        deleteDoc(doc(taskRef, 'Tasks', id));
+        deleteDoc(doc(taskRef, id));
     }
 
     // Tentativa de Leitura #1
@@ -70,7 +70,7 @@ export default function Task({navigation}) {
                 // Esconder a barra vertical da list
                 showsVerticalScrollIndicator={false}
                 data={tasks}
-                renderItem={({ item }) => {
+                renderItem={({item}) => {
                     return (
                         <View style={styles.Tasks}>
                             <TouchableOpacity 
