@@ -3,13 +3,25 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 
 import styles from './style';
 import { FIREBASE_DB } from '../../config/firebaseconfig';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, doc, setDoc } from 'firebase/firestore';
 
 export default function NewTask({ navigation }) {
     const [description, setDescription] = useState(null);
 
+    // Adicionar documento com ID manual
+    async function addTaskManual() {
+        const db = collection(FIREBASE_DB, 'Tasks');
+        const taskRef = doc(db, '001');
+        await setDoc(taskRef, {
+            description: description,
+            status: false
+        });
+        navigation.navigate('Task');
+    }
+    // Adicionar documento com ID gerado automaticamente
     async function addTask() {
-        const taskRef = await addDoc(collection(FIREBASE_DB, 'Tasks'), {
+        const taskRef = collection(FIREBASE_DB, 'Tasks');
+        await addDoc(taskRef, {
             description: description,
             status: false
         })
