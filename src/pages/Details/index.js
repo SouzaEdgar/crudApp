@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 
 import styles from './style';
+import { AntDesign } from '@expo/vector-icons';
+
 import { FIREBASE_DB } from '../../config/firebaseconfig';
 import { collection, doc, updateDoc } from 'firebase/firestore';
 
@@ -31,7 +33,11 @@ export default function Details({navigation, route}) {
                 style={styles.buttonNewTask}
                 onPress={() => {editTask(descriptionEdit, idTask)}}
             >
-                <Text style={styles.iconButton}>Save</Text>
+                <AntDesign
+                name='check'
+                color='#fff'
+                size={30}
+                />
             </TouchableOpacity>
         </View>
     )

@@ -33,11 +33,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    iconButton: {
-        color: '#fff',
-        fontSize: 15,
-        fontWeight: 'bold',
-    }
 })
 
 export default styles;
