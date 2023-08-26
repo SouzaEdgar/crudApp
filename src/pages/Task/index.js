@@ -10,6 +10,9 @@ import {
 import styles from './style';
 import { FontAwesome } from '@expo/vector-icons';
 
+// teste de icon
+import { FontAwesome5 } from '@expo/vector-icons';
+
 import { FIREBASE_DB } from '../../config/firebaseconfig';
 import { 
     collection, 
@@ -77,19 +80,6 @@ export default function Task({navigation}) {
                 renderItem={({item}) => {
                     return (
                         <View style={styles.Tasks}>
-                            <TouchableOpacity 
-                                style={styles.deleteTask}
-                                onPress={() => {
-                                    deleteTask(item.id)
-                                }}
-                            >
-                                <FontAwesome
-                                    name='star'
-                                    size={23}
-                                    color='#F92e6a'
-                                >
-                                </FontAwesome>
-                            </TouchableOpacity>
                             <Text
                                 style={styles.DescriptionTask}
                                 onPress={() => {
@@ -101,6 +91,19 @@ export default function Task({navigation}) {
                             >
                                 {item.description}
                             </Text>
+                            <TouchableOpacity 
+                                style={styles.deleteTask}
+                                onPress={() => {
+                                    deleteTask(item.id)
+                                }}
+                            >
+                                <FontAwesome
+                                    name='trash'
+                                    size={23}
+                                    color='#F92e6a'
+                                >
+                                </FontAwesome>
+                            </TouchableOpacity>
                         </View>
                     )
                 }}

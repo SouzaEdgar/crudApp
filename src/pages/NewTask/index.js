@@ -11,7 +11,7 @@ export default function NewTask({ navigation }) {
     // Adicionar documento com ID manual
     async function addTaskManual() {
         const db = collection(FIREBASE_DB, 'Tasks');
-        const taskRef = doc(db, '001');
+        const taskRef = doc(db, '0');
         await setDoc(taskRef, {
             description: description,
             status: false

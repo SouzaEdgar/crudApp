@@ -14,17 +14,17 @@ const styles = StyleSheet.create({
     },
     deleteTask: {
         justifyContent: 'center',
-        paddingLeft: 25
+        paddingRight: 25
     },
     DescriptionTask: {
-        width: '75%',
+        width: '80%',
         alignContent: 'flex-start',
         backgroundColor: '#f5f5f5cf',
         padding: 12,
         paddingHorizontal: 20,
         borderRadius: 50,
         marginBottom: 5,
-        marginRight: 20,
+        marginLeft: 20,
         color: '#282b2db5',
     },
     buttonNewTask: {
