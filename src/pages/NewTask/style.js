@@ -1,16 +1,22 @@
 import { StyleSheet } from "react-native";
+// Colors
+import { colors } from "../../config/theme";
+
+// Define Theme
+const theme = {mode: 'dark'};
+let activeColors = colors[theme.mode];
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: activeColors.primary,
     },
     label: {
         width: '90%',
         marginTop: 20,
         fontSize: 16,
         marginLeft: 20,
-        color: '#F92E6A',
+        color: activeColors.secondary,
     },
     input: {
         width: '90%',
@@ -18,9 +24,10 @@ const styles = StyleSheet.create({
         padding: 10,
         height: 50,
         borderBottomWidth: 1,
-        borderBottomColor: '#F92E6A',
+        borderBottomColor: activeColors.secondary,
         marginLeft: 'auto',
         marginRight: 'auto',
+        color: activeColors.tint,
     },
     buttonNewTask: {
         width: 60,
@@ -28,7 +35,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 30,
         left: 20,
-        backgroundColor: '#F92e6a',
+        backgroundColor: activeColors.secondary,
         borderRadius: 50,
         justifyContent: 'center',
         alignItems: 'center',

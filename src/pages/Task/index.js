@@ -1,7 +1,6 @@
-import React, { useState, useEffect, cloneElement } from 'react';
-import { 
-    SafeAreaView, 
-    View, 
+import React, { useState, useEffect } from 'react';
+import {  
+    View,
     Text,
     TouchableOpacity,
     FlatList
@@ -10,30 +9,29 @@ import {
 import styles from './style';
 import { FontAwesome } from '@expo/vector-icons';
 
-// teste de icon
-import { FontAwesome5 } from '@expo/vector-icons';
-
 import { FIREBASE_DB } from '../../config/firebaseconfig';
 import { 
-    collection, 
-    doc, 
-    setDoc, 
-    onSnapshot, 
-    Firestore,
+    collection,
+    doc,
+    onSnapshot,
     deleteDoc,
     getDocs
 } from "firebase/firestore"; 
 
+// Colors
+import { colors } from '../../config/theme';
+
 export default function Task({navigation}) {
+    // Define Theme
+    const theme = {mode: 'dark'};
+    let activeColors = colors[theme.mode];
 
     // Tentativa de Leitura #2
     //      retorna uma lista (dos itens)
     async function getTasks() {
-        // db = FIREBASE_DB
         const tasksCol = collection(FIREBASE_DB, 'Tasks');
         const tasksSnapshot = await getDocs(tasksCol);
         const tasksList = tasksSnapshot.docs.map(doc => doc.data());
-
         return tasksList;
     }
 
@@ -100,7 +98,7 @@ export default function Task({navigation}) {
                                 <FontAwesome
                                     name='trash'
                                     size={23}
-                                    color='#F92e6a'
+                                    color= {activeColors.secondary}
                                 >
                                 </FontAwesome>
                             </TouchableOpacity>

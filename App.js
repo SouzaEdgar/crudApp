@@ -1,8 +1,12 @@
-import { StyleSheet, Button, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { AntDesign } from '@expo/vector-icons';
+// Colors
+import { colors } from './src/config/theme';
+
+// Import Icons
+import { AntDesign, FontAwesome5 } from '@expo/vector-icons';
 
 // Import Pages
 import Task from './src/pages/Task';
@@ -12,64 +16,84 @@ import Details from './src/pages/Details';
 // Create Stack
 const Stack = createStackNavigator();
 
-export default function App({navigation}) {
+export default function App() {
+  // Define Theme
+  const theme = {mode: 'dark'};
+  let activeColors = colors[theme.mode];
+
   return (
     <NavigationContainer>
       {/* Initial Rote */}
       <Stack.Navigator initialRouteName='Task'>
         {/* Pages */}
         <Stack.Screen
-          name='Task Manager'
+          name='Task'
           component={Task}
           options={{
-            headerTintColor: '#f92e6a',
-            headerTitleAlign: 'center'
+            headerTitle: 'Task Manager',
+            headerTitleAlign: 'center',
+            headerTintColor: activeColors.secondary,
+            headerStyle: {
+              backgroundColor: activeColors.primary
+            },
+            headerRight: () => (
+              <TouchableOpacity
+              // Ativar / Desativar DarkMode Theme
+                //onPress={() => {darkMode()}}
+              >
+                <FontAwesome5 
+                  name='moon'
+                  size={25}
+                  color={activeColors.secondary}
+                  style={{
+                    marginRight: 25
+                  }}
+                />
+              </TouchableOpacity>
+            )
           }}
         />
         <Stack.Screen
           name='NewTask'
           component={NewTask}
           options={{
+            headerTintColor: activeColors.secondary,
+            headerStyle: {
+              backgroundColor: activeColors.primary
+            },
             headerBackImage: () => (
               <AntDesign 
                 name='leftcircle'
                 size={30}
-                color={'#f92e6a'}
+                color={activeColors.secondary}
                 style={{
                   marginLeft: 8
                 }}
               />
-            ),
-            headerTintColor: '#f92e6a',
+            )
           }}
         />
         <Stack.Screen
           name='Details'
           component={Details}
           options={{
+            headerTintColor: activeColors.secondary,
+            headerStyle: {
+              backgroundColor: activeColors.primary
+            },
             headerBackImage: () => (
               <AntDesign 
                 name='leftcircle'
                 size={30}
-                color={'#f92e6a'}
+                color={activeColors.secondary}
                 style={{
                   marginLeft: 8
                 }}
               />
-            ),
-            headerTintColor: '#f92e6a'
+            )
           }}
         />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }
-});

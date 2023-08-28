@@ -1,9 +1,15 @@
 import { StyleSheet } from "react-native";
+// Colors
+import { colors } from '../../config/theme';
+
+// Define Theme
+const theme = {mode: 'dark'};
+let activeColors = colors[theme.mode];
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: activeColors.primary,
         paddingTop: 20
     },
     Tasks: {
@@ -19,13 +25,13 @@ const styles = StyleSheet.create({
     DescriptionTask: {
         width: '80%',
         alignContent: 'flex-start',
-        backgroundColor: '#f5f5f5cf',
+        backgroundColor: activeColors.tertiary,
         padding: 12,
         paddingHorizontal: 20,
         borderRadius: 50,
         marginBottom: 5,
         marginLeft: 20,
-        color: '#282b2db5',
+        color: activeColors.tint,
     },
     buttonNewTask: {
         width: 60,
@@ -33,13 +39,13 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 30,
         left: 20,
-        backgroundColor: '#F92e6a',
+        backgroundColor: activeColors.secondary,
         borderRadius: 50,
         justifyContent: 'center',
         alignItems: 'center',
     },
     iconButton: {
-        color: '#fff',
+        color: activeColors.primary,
         fontSize: 25,
         fontWeight: 'bold',
     }

@@ -3,11 +3,17 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 
 import styles from './style';
 import { AntDesign } from '@expo/vector-icons';
+// Colors
+import { colors } from '../../config/theme';
 
 import { FIREBASE_DB } from '../../config/firebaseconfig';
 import { collection, addDoc, doc, setDoc } from 'firebase/firestore';
 
 export default function NewTask({ navigation }) {
+    // Define Theme
+    const theme = {mode: 'dark'};
+    let activeColors = colors[theme.mode];
+
     const [description, setDescription] = useState(null);
 
     // Adicionar documento com ID manual
@@ -29,15 +35,6 @@ export default function NewTask({ navigation }) {
         })
         navigation.navigate('Task');
     }
-    /*
-    function addTask() {
-        FIREBASE_DB.collection('Tasks').add({
-            description: description,
-            status: false
-        });
-        navigation.navigate('Task');
-    }
-    */
 
     return (
         <View style={styles.container}>
@@ -45,6 +42,7 @@ export default function NewTask({ navigation }) {
             <TextInput
                 style={styles.input}
                 placeholder='Ex: Estudar React Native'
+                placeholderTextColor={activeColors.tintSoft}
                 onChangeText={setDescription}
                 value={description}
             />
@@ -53,9 +51,9 @@ export default function NewTask({ navigation }) {
                 onPress={() => {addTask()}}
             >
                 <AntDesign
-                name='check'
-                color='#fff'
-                size={30}
+                    name='check'
+                    color={activeColors.primary}
+                    size={30}
                 />
             </TouchableOpacity>
         </View>
