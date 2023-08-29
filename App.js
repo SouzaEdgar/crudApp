@@ -21,13 +21,20 @@ export default function App() {
   // Context Theme
   const [theme, setTheme] = useState({mode: 'light'});
 
-
+  const updateTheme = (newTheme) => {
+    let mode;
+    if (!newTheme) {
+      mode = theme.mode === 'dark' ? 'light' : 'dark';
+      newTheme = {mode};
+    }
+    setTheme(newTheme);
+  }
 
   // Define Theme (manual)
   let activeColors = colors[theme.mode];
 
   return (
-    <ThemeContext.Provider value={{ theme }}>
+    <ThemeContext.Provider value={{ theme, updateTheme }}>
         <NavigationContainer>
           {/* <StatusBar style={theme.mode === 'dark' ? 'light' : 'light'}/> */}
           {/* Initial Rote */}
@@ -46,7 +53,7 @@ export default function App() {
                 headerRight: () => (
                   <TouchableOpacity
                   // Ativar / Desativar DarkMode Theme
-                    //onPress={() => {darkMode()}}
+                    onPress={() => {updateTheme()}}
                   >
                     <FontAwesome5 
                       name='moon'
