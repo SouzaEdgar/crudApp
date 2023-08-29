@@ -7,10 +7,10 @@ export const colors= {
         tintSoft: '#000000b3',
     },
     dark: {
-        primary: '#1f2937',
-        secondary: '#2e33f9',
-        tertiary: '#36362d',
-        tint: '#ffffff',
+        primary: '#000000',//'#1f2937',
+        secondary: '#0472ff',//'#2157ff',//'#0472ff',
+        tertiary: '#2c2c3680',
+        tint: '#f5f5f5cc',
         tintSoft: '#ffffff80',
     },
     // Background

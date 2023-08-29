@@ -3,12 +3,10 @@ import {
     View,
     Text,
     TouchableOpacity,
-    FlatList
+    FlatList,
 } from 'react-native';
-
 import styles from './style';
 import { FontAwesome } from '@expo/vector-icons';
-
 import { FIREBASE_DB } from '../../config/firebaseconfig';
 import { 
     collection,
@@ -17,14 +15,18 @@ import {
     deleteDoc,
     getDocs
 } from "firebase/firestore"; 
-
-// Colors
+// Import Colors
 import { colors } from '../../config/theme';
+// Import Context Theme
+import { ThemeContext } from '../../contexts/ThemeContext';
+import { useContext } from 'react';
+
 
 export default function Task({navigation}) {
     // Define Theme
-    const theme = {mode: 'dark'};
+    const {theme} = useContext(ThemeContext);
     let activeColors = colors[theme.mode];
+    //console.log(theme.mode)
 
     // Tentativa de Leitura #2
     //      retorna uma lista (dos itens)
@@ -67,7 +69,9 @@ export default function Task({navigation}) {
     }, []);
 
     return (
-        <View style={styles.container}>
+        <View style={[{
+            backgroundColor: activeColors.primary
+        },styles.container]}>
             <FlatList
                 // Esconder a barra vertical da list
                 showsVerticalScrollIndicator={false}
@@ -79,7 +83,10 @@ export default function Task({navigation}) {
                     return (
                         <View style={styles.Tasks}>
                             <Text
-                                style={styles.DescriptionTask}
+                                style={[{
+                                    backgroundColor: activeColors.tertiary,
+                                    color: activeColors.tint,
+                                },styles.DescriptionTask]}
                                 onPress={() => {
                                     navigation.navigate('Details', {
                                         id: item.id,
@@ -107,12 +114,15 @@ export default function Task({navigation}) {
                 }}
             />
             <TouchableOpacity 
-                style={styles.buttonNewTask}
+                style={[{
+                    backgroundColor: activeColors.secondary,
+                },styles.buttonNewTask]}
                 onPress={() => navigation.navigate('NewTask')}
             >
-                <Text style={styles.iconButton}>+</Text>
+                <Text style={[{
+                    color: activeColors.primary
+                },styles.iconButton]}>+</Text>
             </TouchableOpacity>
         </View>
     )
 }
-

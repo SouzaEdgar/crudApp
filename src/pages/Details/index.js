@@ -8,11 +8,14 @@ import { colors } from '../../config/theme';
 
 import { FIREBASE_DB } from '../../config/firebaseconfig';
 import { collection, doc, updateDoc } from 'firebase/firestore';
+// Import Context Theme
+import { ThemeContext } from '../../contexts/ThemeContext';
+import { useContext } from 'react';
 
 // Com o route conseguimos pegar os parametros de outra pagina (montando uma rota)
 export default function Details({navigation, route}) {
     // Define Theme
-    const theme = {mode: 'dark'};
+    const {theme} = useContext(ThemeContext);
     let activeColors = colors[theme.mode];
 
     const [descriptionEdit, setDescriptionEdit] = useState(route.params.description);
@@ -27,10 +30,16 @@ export default function Details({navigation, route}) {
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.label}>Description</Text>
+        <View style={[{
+            backgroundColor: activeColors.primary,
+        },styles.container]}>
+            <Text style={[{
+                color: activeColors.secondary,
+            },styles.label]}>Description</Text>
             <TextInput
-                style={styles.input}
+                style={[{
+                    borderBottomColor: activeColors.secondary,
+                },styles.input]}
                 placeholder='Ex: Estudar React Native'
                 placeholderTextColor={activeColors.tintSoft}
                 color={activeColors.tint}
@@ -38,7 +47,9 @@ export default function Details({navigation, route}) {
                 value={descriptionEdit}
             />
             <TouchableOpacity
-                style={styles.buttonNewTask}
+                style={[{
+                    backgroundColor: activeColors.secondary,
+                },styles.buttonNewTask]}
                 onPress={() => {editTask(descriptionEdit, idTask)}}
             >
                 <AntDesign

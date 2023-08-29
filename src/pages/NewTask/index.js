@@ -8,10 +8,13 @@ import { colors } from '../../config/theme';
 
 import { FIREBASE_DB } from '../../config/firebaseconfig';
 import { collection, addDoc, doc, setDoc } from 'firebase/firestore';
+// Import Context Theme
+import { ThemeContext } from '../../contexts/ThemeContext';
+import { useContext } from 'react';
 
 export default function NewTask({ navigation }) {
     // Define Theme
-    const theme = {mode: 'dark'};
+    const {theme} = useContext(ThemeContext);
     let activeColors = colors[theme.mode];
 
     const [description, setDescription] = useState(null);
@@ -37,17 +40,26 @@ export default function NewTask({ navigation }) {
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.label}>Description</Text>
+        <View style={[{
+            backgroundColor: activeColors.primary,
+        }, styles.container]}>
+            <Text style={[{
+                color: activeColors.secondary,
+            },styles.label]}>Description</Text>
             <TextInput
-                style={styles.input}
+                style={[{
+                    borderBottomColor: activeColors.secondary,
+                    color: activeColors.tint,
+                },styles.input]}
                 placeholder='Ex: Estudar React Native'
                 placeholderTextColor={activeColors.tintSoft}
                 onChangeText={setDescription}
                 value={description}
             />
             <TouchableOpacity
-                style={styles.buttonNewTask}
+                style={[{
+                    backgroundColor: activeColors.secondary,
+                },styles.buttonNewTask]}
                 onPress={() => {addTask()}}
             >
                 <AntDesign
