@@ -36,7 +36,10 @@ export default function App() {
   return (
     <ThemeContext.Provider value={{ theme, updateTheme }}>
         <NavigationContainer>
-          {/* <StatusBar style={theme.mode === 'dark' ? 'light' : 'light'}/> */}
+          <StatusBar 
+            backgroundColor={activeColors.primary}
+            barStyle={theme.mode === 'dark' ? 'light-content' : 'dark-content'}
+          />
           {/* Initial Rote */}
           <Stack.Navigator initialRouteName='Task'>
             {/* Pages */}
