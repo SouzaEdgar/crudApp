@@ -14,7 +14,6 @@ import { useContext } from 'react';
 
 // Com o route conseguimos pegar os parametros de outra pagina (montando uma rota)
 export default function Details({navigation, route}) {
-    // Define Theme
     const {theme} = useContext(ThemeContext);
     let activeColors = colors[theme.mode];
 

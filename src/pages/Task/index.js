@@ -23,10 +23,9 @@ import { useContext } from 'react';
 
 
 export default function Task({navigation}) {
-    // Define Theme
     const {theme} = useContext(ThemeContext);
     let activeColors = colors[theme.mode];
-    //console.log(theme.mode)
+
 
     // Tentativa de Leitura #2
     //      retorna uma lista (dos itens)
@@ -43,10 +42,7 @@ export default function Task({navigation}) {
         deleteDoc(doc(taskRef, id));
     }
 
-    // Tentativa de Leitura #1
-    //   Utilizado na video aula, porem de forma atualizada
     const [tasks, setTasks] = useState([]);
-
     // useEffect, toda vez que for renderizado o componente Task (index.js)
     //  ocorre esta chamada, então sempre vai estar atualizado
     useEffect(() => {
@@ -73,7 +69,6 @@ export default function Task({navigation}) {
             backgroundColor: activeColors.primary
         },styles.container]}>
             <FlatList
-                // Esconder a barra vertical da list
                 showsVerticalScrollIndicator={false}
                 data={tasks}
                 // Como o data esta obtendo as tasks, ao renderizar um item
